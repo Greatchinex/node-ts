@@ -1,13 +1,19 @@
 import { Application, Request, Response } from "express";
+import { myControllers } from "../controllers/myRoutes";
 
 export class myRoutes {
-  public route(app: Application) {
-    app.get("/test", (req: Request, res: Response) => {
-      res.status(200).json({ msg: "Get request successfull" });
-    });
+  public secretController: myControllers = new myControllers();
 
-    app.post("/test", (req: Request, res: Response) => {
-      res.status(200).json({ msg: "POST request successfull" });
-    });
+  public route(app: Application) {
+    app.route("/test").get(this.secretController.testGetRoute);
+    app.route("/test").post(this.secretController.testPostRoute);
+
+    /* If a route has get, post and delete it can just be defined once
+        app.route('/contact/:contactId')
+            .get(this.contactController.getContactWithID)
+            .put(this.contactController.updateContact)
+            .delete(this.contactController.deleteContact)
+    
+    */
   }
 }

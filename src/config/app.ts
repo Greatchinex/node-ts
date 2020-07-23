@@ -1,15 +1,18 @@
 import * as express from "express";
 import { myRoutes } from "../apis/routes/myRoutes";
+import { dBConnect } from "./db";
 // import * as bodyParser from "body-parser";
 
 class App {
   public app: express.Application;
   public allRouters: myRoutes = new myRoutes();
+  public myDb: dBConnect = new dBConnect();
 
   constructor() {
     this.app = express();
     this.config();
     this.allRouters.route(this.app);
+    this.myDb.dbConnection();
   }
 
   private config(): void {
