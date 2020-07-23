@@ -3,6 +3,8 @@ import { myRoutes } from "../apis/routes/myRoutes";
 import { dBConnect } from "./db";
 // import * as bodyParser from "body-parser";
 
+// import { allRoutes } from "../apis/routes";
+
 class App {
   public app: express.Application;
   public allRouters: myRoutes = new myRoutes();
