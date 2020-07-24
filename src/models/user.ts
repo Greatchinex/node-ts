@@ -4,6 +4,9 @@ import * as bcrypt from "bcryptjs";
 import * as jwt from "jsonwebtoken";
 import * as dotenv from "dotenv";
 
+// Import other collections
+import Post from "./post";
+
 dotenv.config();
 
 const userSchema = createSchema(
@@ -12,7 +15,11 @@ const userSchema = createSchema(
     email: Type.string(),
     phone_number: Type.string(),
     age: Type.number(),
-    password: Type.string()
+    password: Type.string(),
+    created_posts: Type.array().of(Type.ref(Type.objectId()).to("Post", Post)),
+    no_of_posts: Type.number({
+      default: 0
+    })
   },
   { timestamps: true }
 );
@@ -27,17 +34,17 @@ userSchema.pre("save", async function (next: NextFunction) {
 
 userSchema.methods = {
   // Sign user token
-  jwtToken: function () {
+  jwtToken: function (): any {
     return jwt.sign({ userId: this._id }, process.env.JWT_SECRET);
   },
 
   // hash password
-  hashPass: async function (password) {
+  hashPass: async function (password): Promise<any> {
     return await bcrypt.hash(password, 12);
   },
 
   // Verify user password
-  verifyPass: async function (password) {
+  verifyPass: async function (password): Promise<any> {
     let cp = await bcrypt.compare(password, this.password);
 
     return cp;

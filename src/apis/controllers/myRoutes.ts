@@ -4,7 +4,7 @@ import User from "../../models/user";
 import { IGetUserAuthInfoRequest } from "../../services/defs";
 
 export class myControllers {
-  public testGetRoute(req: IGetUserAuthInfoRequest, res: Response) {
+  public userProfile(req: IGetUserAuthInfoRequest, res: Response) {
     res.status(200).json({
       user: req.user
     });

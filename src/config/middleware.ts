@@ -19,9 +19,9 @@ export const auth = async (
   next: NextFunction
 ): Promise<any> => {
   try {
-    const token: String = req.header("Authorization").split(" ")[1];
+    const token = req.header("Authorization").split(" ")[1];
 
-    const decoded: IPayload = jwt.verify(token, process.env.JWT_SECRET);
+    const decoded = jwt.verify(token, process.env.JWT_SECRET) as IPayload;
 
     const user = await User.findById(decoded.userId).select({ password: 0 });
 

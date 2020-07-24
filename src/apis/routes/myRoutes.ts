@@ -7,7 +7,7 @@ export class myRoutes {
   public secretController: myControllers = new myControllers();
 
   public route(app: Application) {
-    app.route("/profile").get(auth, this.secretController.testGetRoute);
+    app.route("/profile").get(auth, this.secretController.userProfile);
     app.route("/create-user").post(this.secretController.createUser);
     app.route("/login").post(this.secretController.userLogin);
 
