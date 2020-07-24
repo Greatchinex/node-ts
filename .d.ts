@@ -1,6 +1,8 @@
 // Declaration margin to extend the request object in express
-declare module Express {
+// import { Request } from "express";
+
+declare namespace Express {
   export interface Request {
-    user: object;
+    user: any;
   }
 }
