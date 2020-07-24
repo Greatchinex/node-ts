@@ -35,4 +35,34 @@ export class postControllers {
       res.status(401).json({ msg: err });
     }
   }
+
+  // Comment on post
+  public async postComment(req: IGetUserAuthInfoRequest, res: Response) {
+    try {
+      const { postId } = req.params;
+      const { _id } = req.user;
+      const { message } = req.body;
+
+      const findPost = await Post.findById(postId);
+
+      if (!findPost) {
+        return res.json({ msg: "Post not found" });
+      }
+
+      await Post.findByIdAndUpdate(
+        postId,
+        {
+          $push: { comments: { creator: _id, message } },
+          $inc: { no_of_comments: 1 }
+        },
+        { new: true }
+      );
+
+      res.json({
+        msg: "Comment Posted Successfully"
+      });
+    } catch (err) {
+      res.status(401).json({ msg: err });
+    }
+  }
 }

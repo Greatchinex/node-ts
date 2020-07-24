@@ -9,5 +9,6 @@ export class postRoutes {
 
   public route(app: Application) {
     app.route("/create-post").post(auth, this.post_controller.createPost);
+    app.route("/comment/:postId").post(auth, this.post_controller.postComment);
   }
 }
