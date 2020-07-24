@@ -1,13 +1,20 @@
 import { Request, Response } from "express";
 
+//======== Models ===============//
 import User from "../../models/user";
+
+//======== Services =======//
 import { IGetUserAuthInfoRequest } from "../../services/defs";
 
-export class myControllers {
+export class userControllers {
   public userProfile(req: IGetUserAuthInfoRequest, res: Response) {
-    res.status(200).json({
-      user: req.user
-    });
+    try {
+      res.status(200).json({
+        user: req.user
+      });
+    } catch (err) {
+      res.status(401).json({ msg: err });
+    }
   }
 
   // Create new user

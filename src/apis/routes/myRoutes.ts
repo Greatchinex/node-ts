@@ -1,10 +1,10 @@
 import { Application, Request, Response } from "express";
-import { myControllers } from "../controllers/myRoutes";
+import { userControllers } from "../controllers/myRoutes";
 
 import { auth } from "../../config/middleware";
 
-export class myRoutes {
-  public secretController: myControllers = new myControllers();
+export class userRoutes {
+  public secretController: userControllers = new userControllers();
 
   public route(app: Application) {
     app.route("/profile").get(auth, this.secretController.userProfile);

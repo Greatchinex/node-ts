@@ -29,8 +29,6 @@ export const auth = async (
       throw new Error(); // Fires the code in the catch block
     }
 
-    // console.log(user);
-
     req.user = user;
     // console.log(req);
     next();

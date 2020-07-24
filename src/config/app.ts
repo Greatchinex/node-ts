@@ -1,20 +1,29 @@
 import * as express from "express";
-import { myRoutes } from "../apis/routes/myRoutes";
+
+//====== DB Connection ==========//
 import { dBConnect } from "./db";
+
+//========= Routes =========//
+import { userRoutes } from "../apis/routes/myRoutes";
+import { postRoutes } from "../apis/routes/post";
 // import * as bodyParser from "body-parser";
 
 // import { allRoutes } from "../apis/routes";
 
 class App {
   public app: express.Application;
-  public allRouters: myRoutes = new myRoutes();
   public myDb: dBConnect = new dBConnect();
+  // Routers
+  public userRouters: userRoutes = new userRoutes();
+  public postRouters: postRoutes = new postRoutes();
 
   constructor() {
     this.app = express();
     this.config();
-    this.allRouters.route(this.app);
     this.myDb.dbConnection();
+    // Routers
+    this.userRouters.route(this.app);
+    this.postRouters.route(this.app);
   }
 
   private config(): void {
